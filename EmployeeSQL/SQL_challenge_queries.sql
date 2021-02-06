@@ -5,15 +5,21 @@
 From employees table: emp_no, last_name, first_name, sex
 From salaries table: salary (can be found by linking to emp_no)
 */
-SELECT * FROM employees
 
-SELECT * FROM salaries
+SELECT e.emp_no, e.first_name, e.last_name, e.sex, s.salary 
+FROM employees AS e
+INNER JOIN salaries as s
+ON e.emp_no = s.emp_no;
 
 
 /*
 2. List first name, last name, and hire date for employees who were hired in 1986.
 From employees table: last_name, first_name, hire_date
 */
+
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE hire_date BETWEEN '1986-01-01' AND '1986-12-31';
 
 /* 
 3. List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
@@ -22,8 +28,13 @@ From departments: dept_name (found by dept_no)
 From employees table: last_name, first_name (found by emp_no)
 */
 
-SELECT * FROM dept_manager
-SELECT * FROM departments
+SELECT dm.dept_no, d.dept_name, dm.emp_no, e.first_name, e.last_name
+FROM dept_manager AS dm
+INNER JOIN departments AS d
+ON dm.dept_no = d.dept_no
+INNER JOIN employees as e
+ON dm.emp_no = e.emp_no;
+
 
 
 /* 
