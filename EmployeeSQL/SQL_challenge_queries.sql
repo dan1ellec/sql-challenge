@@ -44,11 +44,22 @@ From employees table: emp_no, last_name, first_name
 From departments: dept_name (found by dept_no)
 
 this is one of those nested ones
+
+SELECT emp_no, last_name, first_name FROM employees
+** This was trying inner join but didn;t need it lol
+SELECT dept_name FROM departments
+WHERE dept_no IN(
+	SELECT dept_no FROM dept_emp WHERE emp_no IN(
+		SELECT emp_no FROM employees 
+))
 */
 
-SELECT * FROM employees
-SELECT * FROM dept_manager
-SELECT * FROM dept_emp
+SELECT de.emp_no, e.first_name, e.last_name, d.dept_name
+FROM employees as e
+INNER JOIN dept_emp as de
+ON e.emp_no = de.emp_no
+INNER JOIN departments as d
+ON d.dept_no = de.dept_no;
 
 
 /*
@@ -56,7 +67,10 @@ SELECT * FROM dept_emp
 From employees table: last_name, first_name, sex
 putting restrictions on employees
 */
-SELECT * FROM employees
+
+SELECT first_name, last_name, sex
+FROM employees
+WHERE first_name = 'Hercules' AND last_name LIKE 'B%';
 
 /* 
 6. List all employees in the Sales department, including their employee number, last name, first name, and department name.
@@ -65,9 +79,14 @@ From dept_emp table: emp_no (found by dept_no)
 From employees table: last_name, first_name (found by emp_no)
 */
 
-SELECT * FROM employees
-SELECT * FROM departments
-SELECT * FROM dept_emp
+
+SELECT de.emp_no, e.last_name, e.first_name, d.dept_name 
+from departments AS d
+INNER JOIN dept_emp AS de
+ON d.dept_no = de.dept_no
+INNER JOIN employees as e
+ON de.emp_no = e.emp_no
+WHERE dept_name = 'Sales';
 
 /*
 7. List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name.
@@ -77,7 +96,22 @@ From employees table: last_name, first_name (found by emp_no)
 Just now selecting two departments to check and not one
 */
 
+SELECT de.emp_no, e.last_name, e.first_name, d.dept_name 
+from departments AS d
+INNER JOIN dept_emp AS de
+ON d.dept_no = de.dept_no
+INNER JOIN employees as e
+ON de.emp_no = e.emp_no
+WHERE dept_name IN ('Sales', 'Development');
+
+
 /*
 8. In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
 Use employees table for this.
 */
+
+
+SELECT last_name, COUNT(last_name) 
+FROM employees
+GROUP BY last_name
+ORDER BY COUNT(last_name) DESC;
