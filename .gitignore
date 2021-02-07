@@ -130,3 +130,7 @@ dmypy.json
 
 # Mac settings
 .DS_Store
+
+# Files associated with passwords
+db_password.py
+
