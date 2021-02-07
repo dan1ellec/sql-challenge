@@ -1,5 +1,6 @@
--- exported to SQL from diagram
+-- TABLE SCHEMATA
 
+-- Drop table code to remove tables if schemata needs to be re-run
 /*
 DROP TABLE "departments" CASCADE;
 DROP TABLE "dept_emp" CASCADE;
@@ -9,7 +10,7 @@ DROP TABLE "salaries" CASCADE;
 DROP TABLE "titles" CASCADE;
 */
 
-
+-- Outlining table schemata, expressing tables in an order that will account for foreign keys
 
 CREATE TABLE "titles" (
     "title_id" VARCHAR(10)   NOT NULL,
@@ -18,6 +19,7 @@ CREATE TABLE "titles" (
         "title_id"
      )
 );
+
 
 CREATE TABLE "employees" (
     "emp_no" INT   NOT NULL,
@@ -32,10 +34,7 @@ CREATE TABLE "employees" (
      )
 );
 
--- here I am saying there is one instance
--- of each title_id in titles table
--- but many instances of title_ids in employees
--- table
+
 CREATE TABLE "departments" (
     "dept_no" VARCHAR(10)   NOT NULL,
     "dept_name" VARCHAR(30)   NOT NULL,
@@ -44,7 +43,7 @@ CREATE TABLE "departments" (
      )
 );
 
--- note columns are not null by default
+
 CREATE TABLE "dept_emp" (
     "emp_no" INT   NOT NULL,
     "dept_no" VARCHAR(10)   NOT NULL,
@@ -52,12 +51,9 @@ CREATE TABLE "dept_emp" (
         "emp_no","dept_no"
      )
 );
+-- setting the primary key as a composite key with two attributes
 
--- here I am saying there is one instance
--- of each department in departments table
--- but many instances of each in dept_emp
--- table
--- emp_no and dept_no form a composite key
+
 CREATE TABLE "dept_manager" (
     "dept_no" VARCHAR(10)   NOT NULL,
     "emp_no" INT   NOT NULL,
@@ -65,8 +61,9 @@ CREATE TABLE "dept_manager" (
         "dept_no","emp_no"
      )
 );
+-- setting the primary key as a composite key with two attributes
 
--- dept_no and emp_no form a composite key
+
 CREATE TABLE "salaries" (
     "emp_no" INT   NOT NULL,
     "salary" INT   NOT NULL,
@@ -74,6 +71,10 @@ CREATE TABLE "salaries" (
         "emp_no","salary"
      )
 );
+-- setting the primary key as a composite key with two attributes
+
+
+-- Altering the tables to assign foreign keys and create relationships
 
 ALTER TABLE "employees" ADD CONSTRAINT "fk_employees_emp_title_id" FOREIGN KEY("emp_title_id")
 REFERENCES "titles" ("title_id");
