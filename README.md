@@ -63,7 +63,7 @@ From examining the data, there is a suspicion the dataset is fake. It is surmise
 
 2. Created a histogram to visualise the most common salary ranges for employees.
 
-![Histogram](mages/sql_challenge_histogram.png)
+![Histogram](Images/sql_challenge_histogram.png)
 
 The histogram shows that the frequency of salaries is positively skewed, with the data clustered toward the left and tailing off to the right. This graph does not give an indication as to whether the data is manufactured or not. It is feasible that a company could have many of their workers on a base salary, with those receiving higher salaries at a much lower frequency. This frequency would decrease as the salary increased. The salaries would then need to be considered in terms of job title, as the explanation for this graph indicates that those in experienced or senior roles would receive the highest salaries.
 
